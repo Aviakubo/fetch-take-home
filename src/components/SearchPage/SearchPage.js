@@ -11,6 +11,7 @@ function SearchPage() {
   const [sortField, setSortField] = useState('breed');
   const [sortOrder, setSortOrder] = useState('asc');
   const [dogs, setDogs] = useState([]);
+  const [favorites, setFavorites] = useState([]);
   const [nextQuery, setNextQuery] = useState(null);
   const [prevQuery, setPrevQuery] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -35,6 +36,7 @@ function SearchPage() {
         sort: `${sortField}:${sortOrder}`,
         ...queryParams,
       };
+
       const searchResponse = await searchDogs(params);
       const { resultIds, next, prev } = searchResponse.data;
       const dogsResponse = await getDogs(resultIds);
@@ -52,6 +54,16 @@ function SearchPage() {
     performSearch();
   }, [selectedBreeds, sortField, sortOrder]);
 
+  const toggleFavorite = (dogId) => {
+    setFavorites((prevFavorites) => {
+      if (prevFavorites.includes(dogId)) {
+        return prevFavorites.filter((id) => id !== dogId);
+      } else {
+        return [...prevFavorites, dogId];
+      }
+    });
+  };
+
   return (
     <div className={styles.searchPage}>
       <FilterBar
@@ -63,12 +75,20 @@ function SearchPage() {
         sortOrder={sortOrder}
         setSortOrder={setSortOrder}
       />
+
       {loading && <p>Loading...</p>}
+
       <div className={styles.dogGrid}>
         {dogs.map((dog) => (
-          <DogCard key={dog.id} dog={dog} />
+          <DogCard
+            key={dog.id}
+            dog={dog}
+            isFavorite={favorites.includes(dog.id)}
+            toggleFavorite={toggleFavorite}
+          />
         ))}
       </div>
+
       <Pagination
         onPrev={() => prevQuery && performSearch({ from: prevQuery })}
         onNext={() => nextQuery && performSearch({ from: nextQuery })}
