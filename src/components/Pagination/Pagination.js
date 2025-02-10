@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './Pagination.css';
+import styles from './Pagination.module.css';
 
 function Pagination({ onPrev, onNext, disablePrev, disableNext }) {
   return (

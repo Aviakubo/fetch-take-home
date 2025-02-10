@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './DogCard.css';
+import styles from './DogCard.module.css';
 
 function DogCard({ dog, isFavorite, toggleFavorite }) {
   return (

@@ -3,7 +3,7 @@ import DogCard from '../DogCard/DogCard';
 import Pagination from '../Pagination/Pagination';
 import FilterBar from '../FilterBar/FilterBar';
 import { getBreeds, searchDogs, getDogs } from '../../api/api';
-import styles from './SearchPage.css';
+import styles from './SearchPage.module.css';
 
 function SearchPage() {
   const [breeds, setBreeds] = useState([]);
