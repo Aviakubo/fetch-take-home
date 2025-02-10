@@ -6,7 +6,7 @@ import { getBreeds, searchDogs, getDogs } from '../../api/api';
 import styles from './SearchPage.module.css';
 
 function SearchPage() {
-  const [breeds, setBreeds] = useState([]);
+  const [allBreeds, setAllBreeds] = useState([]);
   const [selectedBreeds, setSelectedBreeds] = useState([]);
   const [sortField, setSortField] = useState('breed');
   const [sortOrder, setSortOrder] = useState('asc');
@@ -19,7 +19,7 @@ function SearchPage() {
     async function fetchBreeds() {
       try {
         const response = await getBreeds();
-        setBreeds(response.data);
+        setAllBreeds(response.data);
       } catch (err) {
         console.error('Error fetching breeds:', err);
       }
@@ -35,7 +35,6 @@ function SearchPage() {
         sort: `${sortField}:${sortOrder}`,
         ...queryParams,
       };
-
       const searchResponse = await searchDogs(params);
       const { resultIds, next, prev } = searchResponse.data;
       const dogsResponse = await getDogs(resultIds);
@@ -56,7 +55,7 @@ function SearchPage() {
   return (
     <div className={styles.searchPage}>
       <FilterBar
-        breeds={breeds}
+        allBreeds={allBreeds}
         selectedBreeds={selectedBreeds}
         setSelectedBreeds={setSelectedBreeds}
         sortField={sortField}
@@ -64,15 +63,12 @@ function SearchPage() {
         sortOrder={sortOrder}
         setSortOrder={setSortOrder}
       />
-
       {loading && <p>Loading...</p>}
-
       <div className={styles.dogGrid}>
         {dogs.map((dog) => (
           <DogCard key={dog.id} dog={dog} />
         ))}
       </div>
-
       <Pagination
         onPrev={() => prevQuery && performSearch({ from: prevQuery })}
         onNext={() => nextQuery && performSearch({ from: nextQuery })}

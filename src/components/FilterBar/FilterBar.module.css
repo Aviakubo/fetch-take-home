@@ -1,31 +1,64 @@
 .filterBar {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    align-items: center;
-    margin-bottom: 1rem;
-  }
-  
-  .filterControls,
-  .sortControls {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .sortControls {
-    margin-left: 2rem;
-  }
-  
-  label {
-    font-weight: bold;
-    margin-bottom: 0.25rem;
-  }
-  
-  select {
-    padding: 0.5rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    background: #fff;
-    cursor: pointer;
-  }
-  
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.filterControls {
+  display: flex;
+  flex-direction: column;
+}
+
+.filterLabel {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.checkboxContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.clearButton {
+  background: #E74C3C;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  transition: background 0.2s ease;
+}
+
+.clearButton:hover {
+  background: #c0392b;
+}
+
+.sortControls {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.sortControls label {
+  font-weight: bold;
+}
+
+.sortControls select {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background: #fff;
+  cursor: pointer;
+}

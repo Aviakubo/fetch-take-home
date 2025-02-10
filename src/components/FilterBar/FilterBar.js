@@ -1,8 +1,9 @@
 import React from 'react';
+import DogBreedSelect from '../DogBreedSelect/DogBreedSelect';
 import styles from './FilterBar.module.css';
 
 function FilterBar({
-  breeds,
+  allBreeds,
   selectedBreeds,
   setSelectedBreeds,
   sortField,
@@ -10,35 +11,16 @@ function FilterBar({
   sortOrder,
   setSortOrder,
 }) {
-  const handleBreedChange = (e) => {
-    const options = e.target.options;
-    const selected = [];
-    for (let i = 0; i < options.length; i++) {
-      if (options[i].selected) {
-        selected.push(options[i].value);
-      }
-    }
-    setSelectedBreeds(selected);
-  };
-
   return (
     <div className={styles.filterBar}>
       <div className={styles.filterControls}>
-        <label htmlFor="breedFilter">Filter by Breed:</label>
-        <select
-          id="breedFilter"
-          multiple
-          value={selectedBreeds}
-          onChange={handleBreedChange}
-        >
-          {breeds.map((breed) => (
-            <option key={breed} value={breed}>
-              {breed}
-            </option>
-          ))}
-        </select>
+        <label className={styles.filterLabel}>Filter by Breed:</label>
+        <DogBreedSelect
+          allBreeds={allBreeds}
+          selectedBreeds={selectedBreeds}
+          setSelectedBreeds={setSelectedBreeds}
+        />
       </div>
-
       <div className={styles.sortControls}>
         <label htmlFor="sortField">Sort by:</label>
         <select
@@ -50,7 +32,6 @@ function FilterBar({
           <option value="name">Name</option>
           <option value="age">Age</option>
         </select>
-
         <label htmlFor="sortOrder">Order:</label>
         <select
           id="sortOrder"

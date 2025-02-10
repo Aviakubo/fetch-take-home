@@ -42,6 +42,7 @@ function Login({ onLoginSuccess }) {
           onChange={(e) => setName(e.target.value)}
           required
         />
+        <br />
         <label htmlFor="email">Email:</label>
         <input
           id="email"
