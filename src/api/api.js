@@ -1,17 +1,16 @@
 import axios from 'axios';
 
-const BASE_URL = 'https://frontend-take-home-service.fetch.com';
-
 const apiClient = axios.create({
-  baseURL: BASE_URL,
+  baseURL: 'https://frontend-take-home-service.fetch.com',
   withCredentials: true,
 });
 
 export const login = (name, email) =>
   apiClient.post('/auth/login', { name, email });
 
-export const getBreeds = () =>
-  apiClient.get('/dogs/breeds');
+export const logout = () => apiClient.post('/auth/logout');
+
+export const getBreeds = () => apiClient.get('/dogs/breeds');
 
 export const searchDogs = (params) =>
   apiClient.get('/dogs/search', { params });

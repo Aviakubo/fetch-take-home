@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import DogCard from '../DogCard/DogCard';
 import Pagination from '../Pagination/Pagination';
 import FilterBar from '../FilterBar/FilterBar';
@@ -28,7 +28,7 @@ function SearchPage() {
     fetchBreeds();
   }, []);
 
-  const performSearch = async (queryParams = {}) => {
+  const performSearch = useCallback(async (queryParams = {}) => {
     setLoading(true);
     try {
       const params = {
@@ -48,20 +48,18 @@ function SearchPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [selectedBreeds, sortField, sortOrder]);
 
   useEffect(() => {
     performSearch();
-  }, [selectedBreeds, sortField, sortOrder]);
+  }, [performSearch]);
 
   const toggleFavorite = (dogId) => {
-    setFavorites((prevFavorites) => {
-      if (prevFavorites.includes(dogId)) {
-        return prevFavorites.filter((id) => id !== dogId);
-      } else {
-        return [...prevFavorites, dogId];
-      }
-    });
+    setFavorites((prevFavorites) => 
+      prevFavorites.includes(dogId)
+        ? prevFavorites.filter((id) => id !== dogId)
+        : [...prevFavorites, dogId]
+    );
   };
 
   return (
